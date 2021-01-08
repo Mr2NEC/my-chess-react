@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import { Button, Form } from 'react-bootstrap';
-import './LoginPage.css';
+import { Button, Form } from "react-bootstrap";
+import "./LoginPage.css";
 
-export default function Login() {
-    const [login, setLogin] = useState('');
-    const [password, setPassword] = useState('');
+export default function ({ onLogin }) {
+    const [login, setLogin] = useState("");
+    const [password, setPassword] = useState("");
 
     function validateForm() {
         return login.length > 0 && password.length > 0;
@@ -41,6 +41,7 @@ export default function Login() {
                     size="lg"
                     type="submit"
                     disabled={!validateForm()}
+                    onClick={() => onLogin(login, password)}
                 >
                     Login
                 </Button>
