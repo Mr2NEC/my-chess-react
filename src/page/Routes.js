@@ -1,13 +1,9 @@
-import React from "react";
-import { Route, Switch } from "react-router-dom";
-import { connect } from "react-redux";
-import { actionLogin } from "../redux/actions";
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 
-import Home from "./HomePage";
-import NotFoundPage from "./NotFoundPage";
-import LoginPage from "./LoginPage";
-
-const CLoginPage = connect(null, { onLogin: actionLogin })(LoginPage);
+import Home from './HomePage';
+import NotFoundPage from './NotFoundPage';
+import { CLoginPage } from './LoginPage';
 
 export default function Routes() {
     return (

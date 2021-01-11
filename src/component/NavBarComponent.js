@@ -3,7 +3,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import { LinkContainer } from 'react-router-bootstrap';
 
-export default function () {
+export default function NavBarComponent() {
     return (
         <div className="App container py-3">
             <Navbar collapseOnSelect bg="light" expand="md" className="mb-3">

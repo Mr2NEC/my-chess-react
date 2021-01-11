@@ -6,11 +6,11 @@ import {
     RESOLVED,
     REJECTED,
     PENDING,
-} from "./type";
+} from './type';
 
-export const actionSearch = (text) => ({ type: "SEARCH", text });
+export const actionSearch = (text) => ({ type: 'SEARCH', text });
 export const actionSearchResult = (payload) => ({
-    type: "SEARCH_RESULT",
+    type: 'SEARCH_RESULT',
     payload,
 });
 
@@ -43,17 +43,18 @@ const actionPromise = function (name, p) {
 };
 
 const getGQL = (
-    url = "http://localhost:4000/graphql",
+    url = 'http://localhost:4000/graphql',
     getHeaders = () =>
         localStorage.token
             ? { Authorization: `Bearer ${localStorage.token}` }
             : {}
-) => (query = "", variables = {}) =>
+) => (query = '', variables = {}) =>
     fetch(url, {
-        method: "POST",
+        method: 'POST',
+        cors: 'cors',
         headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
             ...getHeaders(),
         },
         body: JSON.stringify({ query, variables }),
@@ -73,11 +74,11 @@ export function actionLogin(login, password) {
     return async function (dispatch) {
         let result = await dispatch(
             actionPromise(
-                "log",
+                'log',
                 gql(
-                    `query log($login:String, $password:String){
-  login(login :$login, password:$password)
-}`,
+                    `query log($login:String!, $password:String!){
+                    login(login:$login, password:$password)
+                    }`,
                     {
                         login: login,
                         password: password,
@@ -98,7 +99,7 @@ export function actionRegister(login, password) {
     return async function (dispatch) {
         let result = await dispatch(
             actionPromise(
-                "reg",
+                'reg',
                 gql(
                     `mutation reg($login:String, $password:String){
   UserUpsert (user:{login:$login, password:$password}){
