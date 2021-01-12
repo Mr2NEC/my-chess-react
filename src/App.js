@@ -7,16 +7,21 @@ import './App.css';
 
 import MainPage from './page/MainPage';
 import GamePage from './page/GamePage';
-import LoginOrRegister from './component/LoginOrRegister';
+import LoginPage from './page/LoginPage';
+import RegisterPage from './page/RegisterPage';
+
+import NavBar from './component/NavBar';
 
 function App() {
     return (
         <Provider store={store}>
             <>
-                <LoginOrRegister />
+                <NavBar />
                 <main>
                     <Route path="/" component={MainPage} exact />
-                    <Route path="/Game" component={GamePage} exact />
+                    <Route path="/game" component={GamePage} exact />
+                    <Route path="/login" component={LoginPage} exact />
+                    <Route path="/register" component={RegisterPage} exact />
                 </main>
             </>
         </Provider>
