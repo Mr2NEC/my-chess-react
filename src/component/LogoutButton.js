@@ -12,7 +12,8 @@ function LogoutButton({ onClick, children }) {
 
 const CLogoutButton = connect(
     (state) => ({
-        children: state.authReducer.payload && state.authReducer.payload.sub.id,
+        children:
+            state.authReducer.payload && state.authReducer.payload.sub.login,
     }),
     { onClick: actionLogout }
 )(LogoutButton);

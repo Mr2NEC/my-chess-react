@@ -1,30 +1,34 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
-import store from './redux/store';
 import './App.css';
 
 import MainPage from './page/MainPage';
 import GamePage from './page/GamePage';
 import LoginPage from './page/LoginPage';
 import RegisterPage from './page/RegisterPage';
+import NotFoundPage from './page/NotFoundPage';
 
 import NavBar from './component/NavBar';
 
 function App() {
     return (
-        <Provider store={store}>
-            <>
-                <NavBar />
-                <main>
-                    <Route path="/" component={MainPage} exact />
-                    <Route path="/game" component={GamePage} exact />
-                    <Route path="/login" component={LoginPage} exact />
-                    <Route path="/register" component={RegisterPage} exact />
-                </main>
-            </>
-        </Provider>
+        <>
+            <NavBar />
+            <Switch>
+                <Route component={MainPage} path="/" exact />
+                <Route component={LoginPage} path="/login" exact />
+                <Route component={RegisterPage} path="/register" exact />
+                <Route component={GamePage} path="/game" exact />
+                <Route
+                    render={({ location }) => (
+                        <>
+                            <NotFoundPage />
+                        </>
+                    )}
+                />
+            </Switch>
+        </>
     );
 }
 
