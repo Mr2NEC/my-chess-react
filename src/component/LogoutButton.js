@@ -1,13 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import actionLogout from '../redux/action/actionLogout';
+import { Button } from 'react-bootstrap';
 
 function LogoutButton({ onClick, children }) {
-    return (
-        <button className="LoginFormButton" onClick={() => onClick()}>
-            {children}
-        </button>
-    );
+    return <Button onClick={() => onClick()}>{children}</Button>;
 }
 
 const CLogoutButton = connect(
