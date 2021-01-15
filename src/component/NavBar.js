@@ -18,6 +18,9 @@ export default function NavBar() {
                     <Nav.Link className="text-light" as={NavLink} to="/game">
                         GamePage
                     </Nav.Link>
+                    <Nav.Link className="text-light" as={NavLink} to="/chat">
+                        ChatPage
+                    </Nav.Link>
                 </Navbar.Collapse>
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-end">
