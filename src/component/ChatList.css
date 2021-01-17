@@ -1,0 +1,14 @@
+.ChatList {
+    max-width: 70%;
+    max-height: 400px;
+    margin: 50px auto;
+}
+/* .outer {
+    overflow: auto; 
+    height: 100%;
+    margin: 0;
+  }
+  
+  .outer, .inner {
+    transform: scaleY(-1);
+  } */

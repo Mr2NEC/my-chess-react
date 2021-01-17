@@ -1,33 +1,24 @@
 import React, { useRef, useState } from 'react';
-import { socket } from '../useChat';
 import { useSelector } from 'react-redux';
-import { Button, Overlay, Tooltip, Card } from 'react-bootstrap';
+import { FormControl, Button, Overlay, Tooltip, InputGroup } from 'react-bootstrap';
 
-export default function Chat() {
+import "./ChatInput.css";
+
+export default function ChatInput(){
     const auth = useSelector((state) => state.authReducer);
     const [show, setShow] = useState(false);
     const target = useRef(null);
-    socket();
-    return (
-        <>
-            <Card style={{ width: '50rem' }}>
-                <Card.Body>
-                    <Card.Title>Card Title</Card.Title>
-                    <Card.Subtitle className="mb-2 text-muted">
-                        Card Subtitle
-                    </Card.Subtitle>
-                    <Card.Text>
-                        Some quick example text to build on the card title and
-                        make up the bulk of the card's content.
-                    </Card.Text>
-                </Card.Body>
-            </Card>
+   return <InputGroup className="ChatInput mb-3">
+            <FormControl
+            placeholder="Please enter your message."
+            aria-label="Please enter your message"
+            aria-describedby="basic-addon2"
+            />
+            <InputGroup.Append>
             {auth.token !== undefined && auth.token === localStorage.token ? (
-                <>
                     <Button ref={target} onClick={() => console.log('ok')}>
                         Send
                     </Button>
-                </>
             ) : (
                 <>
                     <Button ref={target} onClick={() => setShow(!show)}>
@@ -46,6 +37,6 @@ export default function Chat() {
                     </Overlay>
                 </>
             )}
-        </>
-    );
+                </InputGroup.Append>
+        </InputGroup>
 }
