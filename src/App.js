@@ -17,9 +17,9 @@ function App() {
             <NavBar />
             <Switch>
                 <Route component={MainPage} path="/" exact />
+                <Route component={GamePage} path="/game" exact />
                 <Route component={LoginPage} path="/login" exact />
                 <Route component={RegisterPage} path="/register" exact />
-                <Route component={GamePage} path="/game" exact />
                 <Route
                     render={({ location }) => (
                         <>

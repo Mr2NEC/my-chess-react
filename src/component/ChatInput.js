@@ -15,9 +15,9 @@ export default function ChatInput() {
     return (
         <InputGroup className="mb-2">
             <FormControl
+                as="textarea"
                 placeholder="Please enter your message."
-                aria-label="Please enter your message"
-                aria-describedby="basic-addon2"
+                rows={3}
             />
             <InputGroup.Append>
                 {auth.token !== undefined &&
