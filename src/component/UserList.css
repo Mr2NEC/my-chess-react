@@ -1,18 +1,17 @@
+.UserList {
+    min-width: 320px;
+    max-width: 600px;
+    max-height: 400px;
+    margin: 50px auto;
+}
 
-    .UserList {
-        max-width: 600px;
-        max-height: 400px;
-        margin: 50px auto;
-    }
-
-    .UserList > div {
-        width: 90%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin: 0 auto;
-    }
-    .UserList span {
-        margin: 0 auto;
-    }
-
+.UserList > div {
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+}
+.UserList span {
+    margin: 0 auto;
+}
