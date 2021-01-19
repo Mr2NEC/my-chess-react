@@ -29,11 +29,12 @@ export default function ChatInput() {
                     <Button
                         ref={target}
                         onClick={() =>
-                            socket.emit('sendMSG', {
+                          {socket.emit('sendMSG', {
                                 chatID: 1,
                                 login: auth.payload.sub.login,
                                 message: text,
                             })
+                            socket.on('sendMSG',(data) => {if(data ==='ok'){setText('')}})}
                         }
                     >
                         Send
