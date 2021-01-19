@@ -12,10 +12,11 @@ export default function actionRegister(login, password) {
         let result = await dispatch(
             actionPromise(name, gql(mutation, variables))
         );
-
-        dispatch(actionAuthRegister(result));
-
-        return dispatch(actionLogin(login, password));
+        let data = await dispatch(actionAuthRegister(result));
+        console.log(data);
+        if (data.payload !== undefined) {
+            return dispatch(actionLogin(login, password));
+        }
     };
 }
 

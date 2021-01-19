@@ -10,7 +10,7 @@ const ListGroupStyle = {
     height: '400px',
 };
 export default function ChatList({ messages }) {
-    socket();
+    socket.emit('connection');
     return (
         <>
             <div className="d-flex flex-column w-90 mx-2">

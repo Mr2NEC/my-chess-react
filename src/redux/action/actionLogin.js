@@ -13,7 +13,7 @@ export default function actionLogin(login, password) {
 
     return async function (dispatch) {
         let result = await dispatch(actionPromise(name, gql(query, variables)));
-
+        console.log(result);
         return dispatch(actionAuthLogin(result));
     };
 }

@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { socket } from '../useChat';
 import { useSelector } from 'react-redux';
 import {
     FormControl,
@@ -11,6 +12,7 @@ import {
 export default function ChatInput() {
     const auth = useSelector((state) => state.authReducer);
     const [show, setShow] = useState(false);
+    const [text, setText] = useState('');
     const target = useRef(null);
     return (
         <InputGroup className="mb-2">
@@ -18,11 +20,22 @@ export default function ChatInput() {
                 as="textarea"
                 placeholder="Please enter your message."
                 rows={3}
+                value={text}
+                onChange={(e) => setText(e.target.value.trim())}
             />
             <InputGroup.Append>
                 {auth.token !== undefined &&
                 auth.token === localStorage.token ? (
-                    <Button ref={target} onClick={() => console.log('ok')}>
+                    <Button
+                        ref={target}
+                        onClick={() =>
+                            socket.emit('sendMSG', {
+                                chatID: 1,
+                                login: auth.payload.sub.login,
+                                message: text,
+                            })
+                        }
+                    >
                         Send
                     </Button>
                 ) : (

@@ -36,7 +36,7 @@ function AuthForm({ onLogin, textBtn = 'Submit' }) {
                     block
                     size="lg"
                     disabled={!validateForm()}
-                    onClick={() => onLogin(login, password)}
+                    onClick={() => onLogin(login.toLowerCase(), password)}
                 >
                     {textBtn}
                 </Button>

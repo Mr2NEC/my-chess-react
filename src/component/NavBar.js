@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import CLogoutButton from './LogoutButton';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import { Navbar, Nav } from 'react-bootstrap';
 
 export default function NavBar() {
@@ -23,7 +23,10 @@ export default function NavBar() {
                 <Navbar.Collapse className="justify-content-end">
                     {auth.token !== undefined &&
                     auth.token === localStorage.token ? (
-                        <CLogoutButton />
+                        <>
+                            <Redirect to="/" />
+                            <CLogoutButton />
+                        </>
                     ) : (
                         <>
                             <Nav.Link
