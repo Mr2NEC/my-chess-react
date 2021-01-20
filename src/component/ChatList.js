@@ -1,5 +1,5 @@
 import React from 'react';
-import { socket } from '../useChat';
+import { socket } from '../socketIO';
 import { ListGroup } from 'react-bootstrap';
 
 import ChatItem from './ChatItem';

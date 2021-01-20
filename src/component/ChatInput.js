@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { socket } from '../useChat';
+import { socket } from '../socketIO';
 import { useSelector } from 'react-redux';
 import {
     FormControl,
