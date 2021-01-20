@@ -28,14 +28,18 @@ export default function ChatInput() {
                 auth.token === localStorage.token ? (
                     <Button
                         ref={target}
-                        onClick={() =>
-                          {socket.emit('sendMSG', {
+                        onClick={() => {
+                            socket.emit('sendMSG', {
                                 chatID: 1,
                                 login: auth.payload.sub.login,
                                 message: text,
-                            })
-                            socket.on('sendMSG',(data) => {if(data ==='ok'){setText('')}})}
-                        }
+                            });
+                            socket.on('sendMSG', (data) => {
+                                if (data === 'ok') {
+                                    setText('');
+                                }
+                            });
+                        }}
                     >
                         Send
                     </Button>
