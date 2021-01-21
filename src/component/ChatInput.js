@@ -31,8 +31,7 @@ export default function ChatInput() {
                         onClick={() => {
                             socket.emit('sendMSG', {
                                 chatID: 1,
-                                login: auth.payload.sub.login,
-                                message: text,
+                                text: text,
                             });
                             socket.on('sendMSG', (data) => {
                                 if (data === 'ok') {
