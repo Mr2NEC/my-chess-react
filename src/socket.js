@@ -8,7 +8,6 @@ export const socket = socketOpen(SOCKET_SERVER_URL,{
     { token: `Bearer ${localStorage.token}` }
     : null,
     transports: ['websocket'],
-    auth: localStorage.connectionId?{connectionId:localStorage.connectionId}:{}
 });
 
 

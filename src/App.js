@@ -15,10 +15,7 @@ import {socket} from './socket';
 
 
 function App() {
-    socket.on('connection', (data)=>{
-        console.log(data)
-        localStorage.connectionId = data.connectionId
-    })
+    socket.on('connection')
     return (
         <>
             <NavBar/>
