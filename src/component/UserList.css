@@ -1,12 +1,12 @@
 .UserList {
-    min-width: 320px;
-    max-width: 600px;
-    max-height: 400px;
-    margin: 50px auto;
+    width: 100%;
+    min-width: 620px;
+    max-height: 50vh;
+    margin: 50px 10px;
 }
 
 .UserList > div {
-    width: 90%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;

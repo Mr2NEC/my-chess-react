@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
+
 
 import './App.css';
 
@@ -10,11 +11,17 @@ import RegisterPage from './page/RegisterPage';
 import NotFoundPage from './page/NotFoundPage';
 
 import NavBar from './component/NavBar';
+import {socket} from './socket';
+
 
 function App() {
+    socket.on('connection', (data)=>{
+        console.log(data)
+        localStorage.connectionId = data.connectionId
+    })
     return (
         <>
-            <NavBar />
+            <NavBar/>
             <Switch>
                 <Route component={MainPage} path="/" exact />
                 <Route component={GamePage} path="/game" exact />
