@@ -1,22 +1,20 @@
 import { REGISTER } from '../type';
 import actionLogin from './actionLogin';
-import { gql } from './gql';
 import actionPromise from './actionPromise';
+import { socket } from "../socket";
 
 export default function actionRegister(login, password) {
     const name = 'Regiser';
-    const mutation = `mutation reg($login:String!, $password:String!){addUser(user:{login:$login, password:$password}){id login}}`;
-    const variables = { login: `${login}`, password: `${password}` };
+    const variables = { login: login, password: password };
 
     return async function (dispatch) {
-        let result = await dispatch(
-            actionPromise(name, gql(mutation, variables))
-        );
-        let data = await dispatch(actionAuthRegister(result));
-        console.log(data);
-        if (data.payload !== undefined) {
-            return dispatch(actionLogin(login, password));
-        }
+        await socket.emit("message",{type:REGISTER,...variables});
+        socket.on(REGISTER, async(data)=>{
+            if(data === 200){
+                await dispatch(actionPromise(name,actionAuthRegister(data)))
+                return dispatch(actionLogin(login, password));
+            }
+        })
     };
 }
 

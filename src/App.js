@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 
@@ -11,7 +11,7 @@ import RegisterPage from './page/RegisterPage';
 import NotFoundPage from './page/NotFoundPage';
 
 import NavBar from './component/NavBar';
-import {socket} from './socket';
+import {socket} from './redux/socket';
 
 
 function App() {
