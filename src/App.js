@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-
 import './App.css';
 
 import MainPage from './page/MainPage';
@@ -11,14 +10,13 @@ import RegisterPage from './page/RegisterPage';
 import NotFoundPage from './page/NotFoundPage';
 
 import NavBar from './component/NavBar';
-import {socket} from './redux/socket';
-
+// import {socket} from './redux/socket';
 
 function App() {
-    socket.on('connection')
+    // socket.on('connection')
     return (
         <>
-            <NavBar/>
+            <NavBar />
             <Switch>
                 <Route component={MainPage} path="/" exact />
                 <Route component={GamePage} path="/game" exact />

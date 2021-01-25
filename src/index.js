@@ -9,13 +9,16 @@ import { createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
 import { rootReducer } from './redux/reducer/rootReducer';
 import { Provider } from 'react-redux';
+import WebSocketProvider from './redux/WebSocket';
 
 const store = createStore(rootReducer, applyMiddleware(thunk, logger));
 
 ReactDOM.render(
     <BrowserRouter>
         <Provider store={store}>
-            <App />
+            <WebSocketProvider>
+                <App />
+            </WebSocketProvider>
         </Provider>
     </BrowserRouter>,
     document.getElementById('root')
