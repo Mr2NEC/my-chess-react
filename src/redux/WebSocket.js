@@ -16,8 +16,20 @@ export default ({ children }) => {
 
     const dispatch = useDispatch();
 
-    const sendMessage = (type, payload) => {
-        socket.emit('message', { type, ...payload });
+    const sendMessage = (payload) => {
+        socket.emit('message', { type: SENDMSG, ...payload });
+        // dispatch(updateChatLog(payload));
+    };
+    const sendLogin = (payload) => {
+        socket.emit('message', { type: LOGIN, ...payload });
+    };
+
+    const sendRegister = async(payload) => {
+        console.log('click');
+      let reg= await socket.emit(REGISTER, { ...payload }, (data)=>console.log(data));
+      if(reg === 200){
+        socket.emit('message', { type: LOGIN, ...payload }); 
+      }
     };
 
     if (!socket) {
@@ -37,9 +49,6 @@ export default ({ children }) => {
                 case LOGIN:
                     dispatch(actionLogin(data.payload));
                     break;
-                case REGISTER:
-                    dispatch(actionRegister(data.payload));
-                    break;
 
                 default:
                     break;
@@ -49,6 +58,8 @@ export default ({ children }) => {
         ws = {
             socket: socket,
             sendMessage,
+            sendLogin,
+            sendRegister,
         };
     }
     return (

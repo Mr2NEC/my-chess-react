@@ -31,7 +31,7 @@ export default function authReducer(state, action) {
             }
 
         case REGISTER:
-            return { ...state, registerStatus: action.payload };
+            return state
 
         case LOGOUT:
             return {};

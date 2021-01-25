@@ -2,7 +2,6 @@ import React, { useState, useContext } from 'react';
 import { WebSocketContext } from '../redux/WebSocket';
 import { NavLink } from 'react-router-dom';
 import { Nav, Button, Form } from 'react-bootstrap';
-import { LOGIN } from '../redux/type';
 
 import './AuthForm.css';
 
@@ -10,8 +9,8 @@ export default function LoginPage() {
     const ws = useContext(WebSocketContext);
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
-    const loginMessage = () => {
-        ws.sendMessage(LOGIN, {
+    const sendLogin = () => {
+        ws.sendLogin( {
             login: login,
             password: password,
         });
@@ -46,7 +45,7 @@ export default function LoginPage() {
                         block
                         size="lg"
                         disabled={!validateForm()}
-                        onClick={loginMessage}
+                        onClick={sendLogin}
                     >
                         Sign in
                     </Button>

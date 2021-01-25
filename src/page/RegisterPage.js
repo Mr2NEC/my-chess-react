@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { WebSocketContext } from '../redux/WebSocket';
 import { Button, Form } from 'react-bootstrap';
-import { REGISTER } from '../redux/type';
 
 import './AuthForm.css';
 
@@ -9,8 +8,8 @@ export default function RegisterPage() {
     const ws = useContext(WebSocketContext);
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
-    const registerMessage = () => {
-        ws.sendMessage(REGISTER, {
+    const sendRegister = () => {
+        ws.sendRegister({
             login: login,
             password: password,
         });
@@ -21,7 +20,7 @@ export default function RegisterPage() {
     }
     return (
         <>
-            <h1>LoginPage</h1>
+            <h1>RegisterPage</h1>
             <div className="AuthForm">
                 <Form>
                     <Form.Group size="lg">
@@ -45,7 +44,7 @@ export default function RegisterPage() {
                         block
                         size="lg"
                         disabled={!validateForm()}
-                        onClick={registerMessage}
+                        onClick={sendRegister}
                     >
                         Sign up
                     </Button>
