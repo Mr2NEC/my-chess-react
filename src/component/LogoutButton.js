@@ -1,18 +1,11 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import actionLogout from '../redux/action/actionLogout';
+import React, { useContext } from 'react';
+import { WebSocketContext } from '../redux/WebSocket';
 import { Button } from 'react-bootstrap';
 
-function LogoutButton({ onClick, children }) {
-    return <Button onClick={() => onClick()}>{children}</Button>;
+export default function LogoutButton({ text }) {
+    const ws = useContext(WebSocketContext);
+    const sendLogout = () => {
+        ws.sendLogout();
+    };
+    return <Button onClick={sendLogout}>{text}</Button>;
 }
-
-const CLogoutButton = connect(
-    (state) => ({
-        children:
-            state.authReducer.payload && state.authReducer.payload.sub.login,
-    }),
-    { onClick: actionLogout }
-)(LogoutButton);
-
-export default CLogoutButton;

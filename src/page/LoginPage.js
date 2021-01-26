@@ -7,10 +7,12 @@ import './AuthForm.css';
 
 export default function LoginPage() {
     const ws = useContext(WebSocketContext);
+
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
+
     const sendLogin = () => {
-        ws.sendLogin( {
+        ws.sendLogin({
             login: login,
             password: password,
         });
@@ -19,6 +21,7 @@ export default function LoginPage() {
     function validateForm() {
         return login.length > 0 && password.length > 0;
     }
+
     return (
         <>
             <h1>LoginPage</h1>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import CLogoutButton from './LogoutButton';
+import LogoutButton from './LogoutButton';
 import { NavLink, Redirect } from 'react-router-dom';
 import { Navbar, Nav } from 'react-bootstrap';
 
@@ -25,7 +25,7 @@ export default function NavBar() {
                     auth.token === localStorage.token ? (
                         <>
                             <Redirect to="/" />
-                            <CLogoutButton />
+                            <LogoutButton text={auth.payload.sub.login} />
                         </>
                     ) : (
                         <>

@@ -1,9 +1,9 @@
 import React, { createContext } from 'react';
 import io from 'socket.io-client';
 import { useDispatch } from 'react-redux';
-import { SENDMSG, LOGIN, REGISTER } from './type';
+import { SENDMSG, LOGIN, REGISTER, LOGOUT } from './type';
 // import { actionUpdateChat } from './actions';
-import { actionLogin, actionRegister } from './action/actionAuth';
+import { actionLogin, actionLogout } from './action/actionAuth';
 
 const SOCKET_SERVER_URL = 'http://localhost:4000';
 const WebSocketContext = createContext(null);
@@ -21,15 +21,20 @@ export default ({ children }) => {
         // dispatch(updateChatLog(payload));
     };
     const sendLogin = (payload) => {
-        socket.emit('message', { type: LOGIN, ...payload });
+        socket.emit(LOGIN, payload);
     };
 
-    const sendRegister = async(payload) => {
-        console.log('click');
-      let reg= await socket.emit(REGISTER, { ...payload }, (data)=>console.log(data));
-      if(reg === 200){
-        socket.emit('message', { type: LOGIN, ...payload }); 
-      }
+    const sendRegister = (payload) => {
+        socket.emit(REGISTER, payload, (response) => {
+            if (response.status === 200) {
+                sendLogin(payload);
+            }
+        });
+    };
+    const sendLogout = () => {
+        localStorage.removeItem('token');
+        socket.emit(LOGOUT);
+        dispatch(actionLogout());
     };
 
     if (!socket) {
@@ -40,19 +45,12 @@ export default ({ children }) => {
             transports: ['websocket'],
         });
 
-        socket.on('message', (data) => {
-            console.log(data);
-            switch (data.type) {
-                case SENDMSG:
-                    // dispatch(actionUpdateChat(payload));
-                    break;
-                case LOGIN:
-                    dispatch(actionLogin(data.payload));
-                    break;
+        socket.on(SENDMSG, (payload) => {
+            // dispatch(updateChatLog(payload));
+        });
 
-                default:
-                    break;
-            }
+        socket.on(LOGIN, (payload) => {
+            dispatch(actionLogin(payload));
         });
 
         ws = {
@@ -60,6 +58,7 @@ export default ({ children }) => {
             sendMessage,
             sendLogin,
             sendRegister,
+            sendLogout,
         };
     }
     return (

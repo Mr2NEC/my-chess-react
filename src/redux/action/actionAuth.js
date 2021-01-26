@@ -1,15 +1,11 @@
-import { LOGIN, REGISTER } from '../type';
-
-export function actionRegister(payload) {
-    return {
-        type: REGISTER,
-        payload,
-    };
-}
+import { LOGIN, LOGOUT } from '../type';
 
 export function actionLogin(payload) {
     return {
         type: LOGIN,
         payload,
     };
+}
+export function actionLogout() {
+    return { type: LOGOUT };
 }
