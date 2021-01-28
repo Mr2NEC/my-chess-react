@@ -7,7 +7,8 @@ export default function MainPage() {
         <>
             <h1>Главная</h1>
             <div className="d-flex bd-highlight my-5 justify-content-center">
-                <UserList className=" bd-highlight " />
+                <UserList className=" bd-highlight "  />
+                <ConfirmationModal/>
             </div>
         </>
     );

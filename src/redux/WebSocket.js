@@ -43,7 +43,6 @@ export default ({ children }) => {
 
     const sendCreateGame= (payload) => {
         socket.emit(CREATEGAME, payload);
-        dispatch(actionCreateGame(payload));
     };
 
     if (!socket) {

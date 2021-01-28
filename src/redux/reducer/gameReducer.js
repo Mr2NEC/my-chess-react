@@ -8,12 +8,14 @@ export default function gameReducer(state , action) {
     switch (action.type) {
         case PROPOSEPLAY:
             if (state.propose.status !== true) {
-                state.propose = {connectionId:action.connectionId, login:action.login, status:true}
+                state.propose = {connectionId:action.payload.connectionId, login:action.payload.login, status:action.payload.status}
+            }else if(action.payload.status === false){
+                state.propose = {connectionId: null, login: null, status:action.payload.status}
             }
             return state
         case CREATEGAME:
-            state.createGame.status = action.status
-            state.createGame.roomId = action.roomId
+            state.createGame.status = action.payload.status
+            state.createGame.roomId = action.payload.roomId
             return state
     }
 
