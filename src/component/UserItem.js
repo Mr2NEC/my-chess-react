@@ -1,12 +1,18 @@
-import React from 'react';
-import { ListGroup } from 'react-bootstrap';
-import ConfirmationModal from './ConfirmationModal';
+import React, { useContext } from 'react';
+import { ListGroup, Button } from 'react-bootstrap';
+import { WebSocketContext } from '../redux/WebSocket';
 
-export default function UserItem({ id, login }) {
+export default function UserItem({ connectionId, login }) {
+    const ws = useContext(WebSocketContext);
+    const sendProposePlay = () => {
+        ws.sendProposePlay(connectionId);
+    };
     return (
         <ListGroup.Item>
             <span>{login}</span>
-            <ConfirmationModal id={id} login={login} />
+            <Button variant="success" onClick={sendProposePlay}>
+            Play
+            </Button>
         </ListGroup.Item>
     );
 }
