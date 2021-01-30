@@ -1,9 +1,9 @@
 import React, { createContext } from 'react';
 import io from 'socket.io-client';
 import { useDispatch } from 'react-redux';
-import { SENDMSG, LOGIN, REGISTER, LOGOUT,USERONLINE, USERONLINEADD, USERONLINEDEL, PROPOSEPLAY, CREATEGAME } from './type';
+import { SENDMSG, LOGIN, REGISTER, LOGOUT,USERONLINE, USERONLINEADD, USERONLINEDEL, PROPOSEPLAY, GAMEINIT } from './type';
 // import { actionUpdateChat } from './actions';
-import { actionLogin, actionLogout, actionUserOnline, actionUserOnlineAdd, actionUserOnlineDel, actionProposePlay, actionCreateGame } from './action/action';
+import { actionLogin, actionLogout, actionUserOnline, actionUserOnlineAdd, actionUserOnlineDel, actionProposePlay, actionGame } from './action/action';
 
 const SOCKET_SERVER_URL = 'http://localhost:4000';
 const WebSocketContext = createContext(null);
@@ -41,8 +41,8 @@ export default ({ children }) => {
         socket.emit(PROPOSEPLAY, payload);
     };
 
-    const sendCreateGame= (payload) => {
-        socket.emit(CREATEGAME, payload);
+    const sendGame= (payload) => {
+        socket.emit(GAMEINIT, payload);
     };
 
     if (!socket) {
@@ -76,8 +76,8 @@ export default ({ children }) => {
             dispatch(actionProposePlay(payload));
         });
 
-        socket.on(CREATEGAME, (payload) => {
-            dispatch(actionCreateGame(payload));
+        socket.on(GAMEINIT, (payload) => {
+            dispatch(actionGame(payload));
         });
 
         ws = {
@@ -87,7 +87,7 @@ export default ({ children }) => {
             sendRegister,
             sendLogout,
             sendProposePlay,
-            sendCreateGame
+            sendGame
         };
     }
     return (

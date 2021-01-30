@@ -5,28 +5,28 @@ import { WebSocketContext } from '../redux/WebSocket';
 import { Button,Modal } from 'react-bootstrap';
 
 export default function ConfirmationModal() {
-    const propose = useSelector((state) => state.gameReducer.propose)
+    const propose = useSelector((state) => state.proposeReducer)
 
     const ws = useContext(WebSocketContext);
-    const sendCreateGame = (status) => {
-      ws.sendCreateGame({connectionId:propose.connectionId,status:status});
+    const sendGame = (status) => {
+      ws.sendGame({anotherSocketId: propose.anotherSocketId, status: status});
   };
   
     return (
       <>  
-        <Modal show={propose.status} onHide={()=>sendCreateGame(false)}>
+        <Modal show={propose.show} onHide={()=>sendGame(false)}>
           <Modal.Header closeButton>
-            <Modal.Title>The {propose.login} invites you to join the game.</Modal.Title>
+            <Modal.Title>The {propose.anotherLogin} invites you to join the game.</Modal.Title>
           </Modal.Header>
           <Modal.Body>Do you want to join the game?</Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={()=>{
-              return sendCreateGame(false);
+              return sendGame(false);
               }}>
               No
             </Button>
             <Button variant="primary" onClick={()=>{
-              return sendCreateGame(true);
+              return sendGame(true);
               }}>
               Yes
             </Button>

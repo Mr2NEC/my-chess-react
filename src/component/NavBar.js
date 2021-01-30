@@ -4,6 +4,7 @@ import LogoutButton from './LogoutButton';
 import { NavLink, Redirect } from 'react-router-dom';
 import { Navbar, Nav } from 'react-bootstrap';
 
+
 export default function NavBar() {
     const auth = useSelector((state) => state.authReducer);
     return (
@@ -14,11 +15,6 @@ export default function NavBar() {
                         My Chess
                     </Nav.Link>
                 </Navbar.Brand>
-                <Navbar.Collapse className="justify-content-start">
-                    <Nav.Link className="text-light" as={NavLink} to="/game">
-                        GamePage
-                    </Nav.Link>
-                </Navbar.Collapse>
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-end">
                     {auth.token !== undefined &&

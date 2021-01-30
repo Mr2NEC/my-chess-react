@@ -6,4 +6,5 @@ export const USERONLINE = 'USERONLINE';
 export const USERONLINEADD = 'USERONLINEADD';
 export const USERONLINEDEL = 'USERONLINEDEL';
 export const PROPOSEPLAY = 'PROPOSEPLAY';
-export const CREATEGAME = 'CREATEGAME';
+export const GAMEINIT = 'GAMEINIT';
+export const GAME = 'GAME';

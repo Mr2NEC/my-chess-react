@@ -16,7 +16,6 @@ export default function userOnlineReducer(state , action) {
 
         case USERONLINEDEL:
             state = state.filter(item=> item.connectionId !== action.payload)
-            console.log(state);
             return state;
     }
 

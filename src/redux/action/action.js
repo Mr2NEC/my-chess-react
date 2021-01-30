@@ -1,4 +1,4 @@
-import { LOGIN, LOGOUT, USERONLINE, USERONLINEADD,USERONLINEDEL,PROPOSEPLAY,CREATEGAME } from '../type';
+import { LOGIN, LOGOUT, USERONLINE, USERONLINEADD,USERONLINEDEL,PROPOSEPLAY, GAMEINIT } from '../type';
 
 export function actionLogin(payload) {
     return { type: LOGIN, payload };
@@ -23,6 +23,6 @@ export function actionUserOnlineDel(payload) {
 export function actionProposePlay(payload) {
     return { type: PROPOSEPLAY, payload };
 }
-export function actionCreateGame(payload) {
-    return { type: CREATEGAME, payload };
+export function actionGame(payload) {
+    return { type: GAMEINIT, payload };
 }

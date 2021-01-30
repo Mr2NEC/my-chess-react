@@ -1,5 +1,6 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect} from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 import './App.css';
 
@@ -10,16 +11,15 @@ import RegisterPage from './page/RegisterPage';
 import NotFoundPage from './page/NotFoundPage';
 
 import NavBar from './component/NavBar';
-// import {socket} from './redux/socket';
 
 function App() {
-    // socket.on('connection')
+    const game = useSelector((state) => state.gameReducer);
     return (
         <>
-            <NavBar />
+        {game.gameId?<Redirect to={`/game/${game.gameId}`} />:<NavBar />}
             <Switch>
                 <Route component={MainPage} path="/" exact />
-                <Route component={GamePage} path="/game" exact />
+                <Route path="/game/:id" component={GamePage} exact />
                 <Route component={LoginPage} path="/login" exact />
                 <Route component={RegisterPage} path="/register" exact />
                 <Route
