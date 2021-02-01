@@ -1,29 +1,17 @@
-import { GAMEINIT } from '../type';
+import { GAME } from '../type';
 
 
 export default function gameReducer(state , action) {
     if(!state){
-        state = {
-            status:false,
-            gameId:null,
-            turn:null,
-            color:null
-        }
+        state = {}
     }
     switch (action.type) {
-        case GAMEINIT:
-            if(action.payload.gameId){
+        case GAME:
                 return{
                     ...state,
                     ...action.payload
                 }
-                }else{
-                    return{
-                        ...state,
-                        status:false,
-                        gameId: null
-                }
-            }    
+                   
             
                 default:
                     break;

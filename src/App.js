@@ -13,7 +13,7 @@ import NotFoundPage from './page/NotFoundPage';
 import NavBar from './component/NavBar';
 
 function App() {
-    const game = useSelector((state) => state.gameReducer);
+    const game = useSelector((state) => state.gameDbReducer);
     return (
         <>
         {game.gameId?<Redirect to={`/game/${game.gameId}`} />:<NavBar />}

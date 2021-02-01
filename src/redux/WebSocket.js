@@ -1,9 +1,9 @@
 import React, { createContext } from 'react';
 import io from 'socket.io-client';
 import { useDispatch } from 'react-redux';
-import { SENDMSG, LOGIN, REGISTER, LOGOUT,USERONLINE, USERONLINEADD, USERONLINEDEL, PROPOSEPLAY, GAMEINIT } from './type';
+import { SENDMSG, LOGIN, REGISTER, LOGOUT,USERONLINE, USERONLINEADD, USERONLINEDEL, PROPOSEPLAY, JOINROOM, GAMEDBINIT, GAME } from './type';
 // import { actionUpdateChat } from './actions';
-import { actionLogin, actionLogout, actionUserOnline, actionUserOnlineAdd, actionUserOnlineDel, actionProposePlay, actionGame } from './action/action';
+import { actionLogin, actionLogout, actionUserOnline, actionUserOnlineAdd, actionUserOnlineDel, actionProposePlay, actionGameDb, actionGame, actionMessage } from './action/action';
 
 const SOCKET_SERVER_URL = 'http://localhost:4000';
 const WebSocketContext = createContext(null);
@@ -17,8 +17,7 @@ export default ({ children }) => {
     const dispatch = useDispatch();
 
     const sendMessage = (payload) => {
-        socket.emit('message', { type: SENDMSG, ...payload });
-        // dispatch(updateChatLog(payload));
+        socket.emit(SENDMSG, payload);
     };
     const sendLogin = (payload) => {
         socket.emit(LOGIN, payload);
@@ -42,7 +41,10 @@ export default ({ children }) => {
     };
 
     const sendGame= (payload) => {
-        socket.emit(GAMEINIT, payload);
+        socket.emit(GAMEDBINIT, payload);
+    };
+    const move= (payload) => {
+        socket.emit('move', payload);
     };
 
     if (!socket) {
@@ -65,7 +67,7 @@ export default ({ children }) => {
         });
 
         socket.on(SENDMSG, (payload) => {
-            // dispatch(updateChatLog(payload));
+            dispatch(actionMessage(payload));
         });
 
         socket.on(LOGIN, (payload) => {
@@ -76,7 +78,11 @@ export default ({ children }) => {
             dispatch(actionProposePlay(payload));
         });
 
-        socket.on(GAMEINIT, (payload) => {
+        socket.on(GAMEDBINIT, (payload) => {
+            dispatch(actionGameDb(payload));
+            socket.emit(JOINROOM,payload.gameId);
+        });
+        socket.on(GAME, (payload) => {
             dispatch(actionGame(payload));
         });
 
@@ -87,7 +93,8 @@ export default ({ children }) => {
             sendRegister,
             sendLogout,
             sendProposePlay,
-            sendGame
+            sendGame,
+            move
         };
     }
     return (

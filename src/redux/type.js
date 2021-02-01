@@ -1,10 +1,12 @@
 export const LOGIN = 'LOGIN';
 export const REGISTER = 'REGISTER';
 export const LOGOUT = 'LOGOUT';
-export const SENDMSG = 'SENDMSG';
 export const USERONLINE = 'USERONLINE';
 export const USERONLINEADD = 'USERONLINEADD';
 export const USERONLINEDEL = 'USERONLINEDEL';
 export const PROPOSEPLAY = 'PROPOSEPLAY';
-export const GAMEINIT = 'GAMEINIT';
+export const GAMEDBINIT = 'GAMEDBINIT';
 export const GAME = 'GAME';
+export const MSGINIT = 'MSGINIT';
+export const SENDMSG = 'SENDMSG';
+export const JOINROOM = 'JOINROOM';
