@@ -1,4 +1,4 @@
-import { LOGIN, SENDMSG, LOGOUT, USERONLINE, USERONLINEADD,USERONLINEDEL,PROPOSEPLAY, GAMEDBINIT, GAME } from '../type';
+import { LOGIN, SENDMSG, LOGOUT, USERONLINE, USERONLINEADD,USERONLINEDEL,PROPOSEPLAY, GAMEDBINIT, GAME,MOVE } from '../type';
 
 export function actionLogin(payload) {
     return { type: LOGIN, payload };

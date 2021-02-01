@@ -10,3 +10,4 @@ export const GAME = 'GAME';
 export const MSGINIT = 'MSGINIT';
 export const SENDMSG = 'SENDMSG';
 export const JOINROOM = 'JOINROOM';
+export const MOVE = 'MOVE';

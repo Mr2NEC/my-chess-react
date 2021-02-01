@@ -1,7 +1,7 @@
 import { MSGINIT, SENDMSG } from '../type';
 
 
-export default function gameReducer(state , action) {
+export default function messageReducer(state , action) {
     if(!state){
         state = []
     }

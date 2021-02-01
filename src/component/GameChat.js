@@ -6,18 +6,10 @@ import { WebSocketContext } from '../redux/WebSocket';
 import './Board.css';
 import './scrollbar.css';
 
-let msgs = [
-    {id:1, userId: 1,login: 'Mr2nec', text:'fksafjsfhakjfkaj', timestamp: '10:10'},
-    {id:2, userId: 2,login: 'fss', text:'fksafjsfhakjfkajfksafjsfhakjfkajfksafjsfhakjfkajfksafjsfhakjfkaj', timestamp: '10:11'},
-    {id:3, userId: 3,login: '12323123', text:'fksafjsfhakjfkaj', timestamp: '10:11'},
-    {id:4, userId: 3,login: '12323123', text:'fksafjsfhakjfkaj', timestamp: '10:11'},
-    {id:5, userId: 3,login: '12323123', text:'fksafjsfhakjfkaj', timestamp: '10:11'},
-    {id:6, userId: 3,login: '12323123', text:'fksafjsfhakjfkaj', timestamp: '10:11'},
-]
 export default function GameChat (){
     const [text, setText] = useState('');
     const ws = useContext(WebSocketContext);
-    const auth = useSelector((state) => state.authReducer.payload);
+    const msgs = useSelector((state) => state.messageReducer);
 
     const sendMessage = () => {
         ws.sendMessage(text);
@@ -44,7 +36,6 @@ export default function GameChat (){
     </InputGroup>
     <div className='scrollbar scrollbar-primary'>
             {msgs.map((msg)=>{
-                msg.userStyle= auth.sub.id === msg.userId?'justify-content-end':'justify-content-start';
                 return <GameMsg key={msg.id} {...msg}/>
             })}
 

@@ -7,6 +7,7 @@ import { WebSocketContext } from '../redux/WebSocket';
 const COLUMNS = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
 const ROWS = ['1', '2', '3', '4', '5', '6', '7', '8']
 
+
 const BOARD = []
 for(const [x, ROW] of ROWS.entries()){
     const tr =[]
@@ -20,6 +21,7 @@ for(const [x, ROW] of ROWS.entries()){
 export default function Board() {
     const ws = useContext(WebSocketContext);
     const game = useSelector((state) => state.gameReducer);
+    const gameDb = useSelector((state) => state.gameDbReducer);
     function getPiece(cell){
         let piece =null;
     
@@ -31,7 +33,7 @@ export default function Board() {
         return piece
     }
  return <>
-        <table className='table transform'>
+        <table className={`table ${gameDb.color === 'white'?'transform': ''}`}>
             {BOARD.map((itemTr)=>{
                 return <tr key={Math.random().toString(36).substring(7)}>
                     {itemTr.map((itemTd)=>{
