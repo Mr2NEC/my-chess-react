@@ -1,47 +1,54 @@
-
-.table{
+.chess-desk {
     width: 500px;
     height: 500px;
-    margin: 10px auto;
-    border: 2px solid black;
-    max-width: 50%;
-}
-.transform{
-    transform: rotate(180deg)
-}
-
-.white{
-    background-color: rgb(255, 255, 255);
-    width: 50px;
-    height: 50px;
-}
-.gray{
-    background-color: rgb(65, 64, 64);
-    width: 50px;
-    height: 50px;
-}
-
-.GameChat{
-    width: 500px;
-    height: 500px;
-    margin: 10px auto;
-    border: 2px solid white;
-    max-width: 50%;
-}
-.GameChat > div{
-    max-height: 450px;
-}
-.GameMsg {
+    padding: 0px;
+    position: relative;
+    border: 1px solid black;
+  }
+  
+  .chess-desk__game-field {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    border: 1px solid black;
+  }
+  
+  .chess-desk__header-x {
     display: flex;
-    flex-direction: row;
-    max-width: 70%;
-}
-.timeSize{
-    font-size: 10px;
-}
-
-@media (max-width: 999px){
-    .GameChat{
-        min-width: 90%;
-    }
-}
+    width: 400px;
+    height: 50px;
+    position: absolute;
+    left: 50px;
+  }
+  
+  .chess-desk__header-x__p-top {
+    top: 0px;
+  }
+  
+  .chess-desk__header-x__p-bottom {
+    bottom: 0px;
+  }
+  
+  .chess-desk__header__letter {
+    height: 50px;
+    width: 50px;
+    text-align: center;
+    line-height: 50px;
+    color: gray;
+  }
+  
+  .chess-desk__header-y {
+    width: 50px;
+    height: 400px;
+    position: absolute;
+    top: 50px;
+  }
+  
+  .chess-desk__header-y__p-left {
+    left: 0px;
+  }
+  
+  .chess-desk__header-y__p-right {
+    right: 0px;
+  }
+  

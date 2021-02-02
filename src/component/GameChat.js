@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 import { InputGroup, FormControl, Button} from 'react-bootstrap';
 import GameMsg from './GameMsg'
 import { WebSocketContext } from '../redux/WebSocket';
-import './Board.css';
 import './scrollbar.css';
 
 export default function GameChat (){
@@ -13,12 +12,21 @@ export default function GameChat (){
 
     const sendMessage = () => {
         ws.sendMessage(text);
+        setText('')
     };
+
+    const messagesDiv = {
+        width: '500px',
+        height: '500px',
+      };
+    const messagesBody = {
+        height: '450px',
+      };
 
     function validateMessage() {
         return text.length > 0;
     }
-    return <div className='GameChat'>  
+    return <div style={messagesDiv} className='w-50 mx-auto border '>  
     <InputGroup className='p-1'>
         <FormControl
         placeholder="Enter your message"
@@ -34,7 +42,7 @@ export default function GameChat (){
             >Send</Button>
         </InputGroup.Append>
     </InputGroup>
-    <div className='scrollbar scrollbar-primary'>
+    <div className='scrollbar scrollbar-primary' style={messagesBody}>
             {msgs.map((msg)=>{
                 return <GameMsg key={msg.id} {...msg}/>
             })}

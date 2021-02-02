@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Card } from 'react-bootstrap';
-import './Board.css';
 
 
 export default function GameMsg ({userId, login, text, timestamp}){

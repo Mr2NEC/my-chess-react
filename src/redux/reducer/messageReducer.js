@@ -14,10 +14,8 @@ export default function messageReducer(state , action) {
                 ]
             }  
         case SENDMSG:
-                return[
-                    ...state,
-                    action.payload
-                ]    
+            state.unshift(action.payload)
+                return[...state]    
     }
 
     return state;

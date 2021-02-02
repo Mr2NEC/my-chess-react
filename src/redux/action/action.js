@@ -1,4 +1,4 @@
-import { LOGIN, SENDMSG, LOGOUT, USERONLINE, USERONLINEADD,USERONLINEDEL,PROPOSEPLAY, GAMEDBINIT, GAME,MOVE } from '../type';
+import { LOGIN, SENDMSG, LOGOUT, USERONLINE, USERONLINEADD,USERONLINEDEL,PROPOSEPLAY, GAMEDBINIT, GAME, CLEANMC } from '../type';
 
 export function actionLogin(payload) {
     return { type: LOGIN, payload };
@@ -34,4 +34,7 @@ export function actionGame(payload) {
 
 export function actionMessage(payload) {
     return { type: SENDMSG, payload };
+}
+export function actionMove() {
+    return { type: CLEANMC };
 }

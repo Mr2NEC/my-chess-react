@@ -11,3 +11,5 @@ export const MSGINIT = 'MSGINIT';
 export const SENDMSG = 'SENDMSG';
 export const JOINROOM = 'JOINROOM';
 export const MOVE = 'MOVE';
+export const FROM = 'FROM';
+export const CLEANMC = 'CLEANMC';

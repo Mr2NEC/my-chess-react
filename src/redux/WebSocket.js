@@ -1,9 +1,9 @@
 import React, { createContext } from 'react';
 import io from 'socket.io-client';
 import { useDispatch } from 'react-redux';
-import { SENDMSG, LOGIN, REGISTER, LOGOUT,USERONLINE, USERONLINEADD, USERONLINEDEL, PROPOSEPLAY, JOINROOM, GAMEDBINIT, GAME } from './type';
+import { SENDMSG, LOGIN, REGISTER, LOGOUT,USERONLINE, USERONLINEADD, USERONLINEDEL, PROPOSEPLAY, JOINROOM, GAMEDBINIT, GAME, MOVE } from './type';
 // import { actionUpdateChat } from './actions';
-import { actionLogin, actionLogout, actionUserOnline, actionUserOnlineAdd, actionUserOnlineDel, actionProposePlay, actionGameDb, actionGame, actionMessage } from './action/action';
+import { actionLogin, actionLogout, actionUserOnline, actionUserOnlineAdd, actionUserOnlineDel, actionProposePlay, actionGameDb, actionGame, actionMessage,actionMove } from './action/action';
 
 const SOCKET_SERVER_URL = 'http://localhost:4000';
 const WebSocketContext = createContext(null);
@@ -43,8 +43,9 @@ export default ({ children }) => {
     const sendGame= (payload) => {
         socket.emit(GAMEDBINIT, payload);
     };
-    const move= (payload) => {
-        socket.emit('move', payload);
+    const sendMove= (payload) => {
+        dispatch(actionMove());
+        socket.emit( MOVE, payload);
     };
 
     if (!socket) {
@@ -85,6 +86,9 @@ export default ({ children }) => {
         socket.on(GAME, (payload) => {
             dispatch(actionGame(payload));
         });
+        socket.on(MOVE, (payload) => {
+            socket.emit(GAME, payload);
+        });
 
         ws = {
             socket: socket,
@@ -94,7 +98,7 @@ export default ({ children }) => {
             sendLogout,
             sendProposePlay,
             sendGame,
-            move
+            sendMove
         };
     }
     return (

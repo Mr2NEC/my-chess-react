@@ -7,7 +7,7 @@ export default function GamePage() {
     return (
         <>
             <h1>Game Page</h1>
-            <div className='gamePage'>
+            <div className='d-flex flex-lg-row flex-column'>
             <Board />
             <GameChat />
             </div>
