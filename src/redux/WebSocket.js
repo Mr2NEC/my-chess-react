@@ -1,7 +1,25 @@
 import React, { createContext } from 'react';
 import io from 'socket.io-client';
 import { useDispatch } from 'react-redux';
-import { SENDMSG, LOGIN, REGISTER, LOGOUT,USERONLINE, USERONLINEADD, USERONLINEDEL, PROPOSEPLAY, JOINROOM, GAMEDBINIT, GAME, MOVE, CLEANMC, ERROR, ERRORHIDE } from './type';
+import {
+    SENDMSG,
+    LOGIN,
+    REGISTER,
+    LOGOUT,
+    USERONLINE,
+    USERONLINEADD,
+    USERONLINEDEL,
+    PROPOSEPLAY,
+    JOINROOM,
+    GAMEDBINIT,
+    GAME,
+    MOVE,
+    CLEANMC,
+    ERROR,
+    ERRORHIDE,
+    ALERT,
+    ENDGAME,
+} from './type';
 
 const SOCKET_SERVER_URL = 'http://localhost:4000';
 const WebSocketContext = createContext(null);
@@ -34,22 +52,28 @@ export default ({ children }) => {
         dispatch({ type: LOGOUT });
     };
 
-    const sendProposePlay= (payload) => {
+    const sendProposePlay = (payload) => {
         socket.emit(PROPOSEPLAY, payload);
     };
 
-    const sendGame= (payload) => {
+    const sendGame = (payload) => {
         socket.emit(GAMEDBINIT, payload);
     };
 
-    const sendMove= (payload) => {
+    const sendMove = (payload) => {
         dispatch({ type: CLEANMC });
-        socket.emit( MOVE, payload);
+        socket.emit(MOVE, payload);
     };
 
-    const sendErrorHide = ()=>{
+    const sendErrorHide = () => {
         dispatch({ type: ERRORHIDE });
-    }
+    };
+    const sendGameAlert = () => {
+        dispatch({ type: ALERT, payload: { alert: false } });
+    };
+    const sendEndGame = () => {
+        dispatch({ type: ENDGAME });
+    };
 
     if (!socket) {
         socket = io.connect(SOCKET_SERVER_URL, {
@@ -65,7 +89,7 @@ export default ({ children }) => {
         socket.on(USERONLINEADD, (payload) => {
             dispatch({ type: USERONLINEADD, payload });
         });
-        
+
         socket.on(USERONLINEDEL, (payload) => {
             dispatch({ type: USERONLINEDEL, payload });
         });
@@ -78,7 +102,7 @@ export default ({ children }) => {
             dispatch({ type: LOGIN, payload });
         });
 
-        socket.on(LOGOUT, ()=> {
+        socket.on(LOGOUT, () => {
             localStorage.removeItem('token');
             dispatch({ type: LOGOUT });
         });
@@ -98,7 +122,10 @@ export default ({ children }) => {
             socket.emit(GAME, payload);
         });
         socket.on(ERROR, (payload) => {
-            dispatch({type:ERROR, payload})
+            dispatch({ type: ERROR, payload });
+        });
+        socket.on(ALERT, () => {
+            dispatch({ type: ALERT, payload: { alert: true } });
         });
 
         ws = {
@@ -110,7 +137,9 @@ export default ({ children }) => {
             sendProposePlay,
             sendGame,
             sendMove,
-            sendErrorHide 
+            sendErrorHide,
+            sendGameAlert,
+            sendEndGame,
         };
     }
     return (
