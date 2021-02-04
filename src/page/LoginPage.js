@@ -16,6 +16,7 @@ export default function LoginPage() {
             login: login,
             password: password,
         });
+        setPassword('')
     };
 
     function validateForm() {

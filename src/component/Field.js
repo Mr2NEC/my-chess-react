@@ -30,8 +30,11 @@ export default function Field(data) {
     function cellClick(position) {
       if(gameDb.color === game.turn){
         if(!movementControl.from ){
-          dispatch({type: 'FROM', cell: position })
           const allowablePositions = getPositions(position);
+          if(allowablePositions.length === 0){
+          return dispatch({type: 'ERROR', payload:'This piece cannot make a move.'});
+          }
+          dispatch({type: 'FROM', cell: position })
           return setSelectedCells(allowablePositions)
         }
 
@@ -39,13 +42,12 @@ export default function Field(data) {
         const findPosition = allowablePositions.find(fp=> fp === position)
 
         if(!findPosition){
-          dispatch({type: 'CLEANMC'})
-          return console.log('no position')
+          return dispatch({type: 'ERROR', payload:'This piece cannot move to the indicated cell.'});
         }
         setSelectedCells([])
         return ws.sendMove({from:movementControl.from,to:position});
       }
-      return console.log('not your turn')
+      return dispatch({type: 'ERROR', payload:'Now is not your turn.'});
     }
 
     function getPiece(cell){

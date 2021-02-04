@@ -11,11 +11,13 @@ import RegisterPage from './page/RegisterPage';
 import NotFoundPage from './page/NotFoundPage';
 
 import NavBar from './component/NavBar';
+import ErrorModal from "./component/ErrorModal";
 
 function App() {
     const game = useSelector((state) => state.gameDbReducer);
     return (
         <>
+        <ErrorModal />
         {game.gameId?<Redirect to={`/game/${game.gameId}`} />:<NavBar />}
             <Switch>
                 <Route component={MainPage} path="/" exact />

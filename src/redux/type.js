@@ -13,3 +13,5 @@ export const JOINROOM = 'JOINROOM';
 export const MOVE = 'MOVE';
 export const FROM = 'FROM';
 export const CLEANMC = 'CLEANMC';
+export const ERROR = 'ERROR';
+export const ERRORHIDE = 'ERRORHIDE';

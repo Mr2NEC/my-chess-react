@@ -13,6 +13,7 @@ export default function RegisterPage() {
             login: login,
             password: password,
         });
+        setPassword('')
     };
 
     function validateForm() {

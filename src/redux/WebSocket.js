@@ -1,9 +1,7 @@
 import React, { createContext } from 'react';
 import io from 'socket.io-client';
 import { useDispatch } from 'react-redux';
-import { SENDMSG, LOGIN, REGISTER, LOGOUT,USERONLINE, USERONLINEADD, USERONLINEDEL, PROPOSEPLAY, JOINROOM, GAMEDBINIT, GAME, MOVE } from './type';
-// import { actionUpdateChat } from './actions';
-import { actionLogin, actionLogout, actionUserOnline, actionUserOnlineAdd, actionUserOnlineDel, actionProposePlay, actionGameDb, actionGame, actionMessage,actionMove } from './action/action';
+import { SENDMSG, LOGIN, REGISTER, LOGOUT,USERONLINE, USERONLINEADD, USERONLINEDEL, PROPOSEPLAY, JOINROOM, GAMEDBINIT, GAME, MOVE, CLEANMC, ERROR, ERRORHIDE } from './type';
 
 const SOCKET_SERVER_URL = 'http://localhost:4000';
 const WebSocketContext = createContext(null);
@@ -33,7 +31,7 @@ export default ({ children }) => {
     const sendLogout = () => {
         localStorage.removeItem('token');
         socket.emit(LOGOUT);
-        dispatch(actionLogout());
+        dispatch({ type: LOGOUT });
     };
 
     const sendProposePlay= (payload) => {
@@ -43,10 +41,15 @@ export default ({ children }) => {
     const sendGame= (payload) => {
         socket.emit(GAMEDBINIT, payload);
     };
+
     const sendMove= (payload) => {
-        dispatch(actionMove());
+        dispatch({ type: CLEANMC });
         socket.emit( MOVE, payload);
     };
+
+    const sendErrorHide = ()=>{
+        dispatch({ type: ERRORHIDE });
+    }
 
     if (!socket) {
         socket = io.connect(SOCKET_SERVER_URL, {
@@ -56,38 +59,46 @@ export default ({ children }) => {
             transports: ['websocket'],
         });
         socket.on(USERONLINE, (payload) => {
-            dispatch(actionUserOnline(payload));
+            dispatch({ type: USERONLINE, payload });
         });
 
         socket.on(USERONLINEADD, (payload) => {
-            dispatch(actionUserOnlineAdd(payload));
+            dispatch({ type: USERONLINEADD, payload });
         });
         
         socket.on(USERONLINEDEL, (payload) => {
-            dispatch(actionUserOnlineDel(payload));
+            dispatch({ type: USERONLINEDEL, payload });
         });
 
         socket.on(SENDMSG, (payload) => {
-            dispatch(actionMessage(payload));
+            dispatch({ type: SENDMSG, payload });
         });
 
         socket.on(LOGIN, (payload) => {
-            dispatch(actionLogin(payload));
+            dispatch({ type: LOGIN, payload });
+        });
+
+        socket.on(LOGOUT, ()=> {
+            localStorage.removeItem('token');
+            dispatch({ type: LOGOUT });
         });
 
         socket.on(PROPOSEPLAY, (payload) => {
-            dispatch(actionProposePlay(payload));
+            dispatch({ type: PROPOSEPLAY, payload });
         });
 
         socket.on(GAMEDBINIT, (payload) => {
-            dispatch(actionGameDb(payload));
-            socket.emit(JOINROOM,payload.gameId);
+            dispatch({ type: GAMEDBINIT, payload });
+            socket.emit(JOINROOM, payload.gameId);
         });
         socket.on(GAME, (payload) => {
-            dispatch(actionGame(payload));
+            dispatch({ type: GAME, payload });
         });
         socket.on(MOVE, (payload) => {
             socket.emit(GAME, payload);
+        });
+        socket.on(ERROR, (payload) => {
+            dispatch({type:ERROR, payload})
         });
 
         ws = {
@@ -98,7 +109,8 @@ export default ({ children }) => {
             sendLogout,
             sendProposePlay,
             sendGame,
-            sendMove
+            sendMove,
+            sendErrorHide 
         };
     }
     return (
