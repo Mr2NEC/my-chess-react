@@ -11,6 +11,7 @@ import RegisterPage from './page/RegisterPage';
 import NotFoundPage from './page/NotFoundPage';
 
 import NavBar from './component/NavBar';
+import GameBar from './component/GameBar';
 import ErrorModal from './component/ErrorModal';
 
 const wrapperDiv = {
@@ -18,63 +19,37 @@ const wrapperDiv = {
 };
 
 function App() {
-    const game = useSelector((state) => state.gameDbReducer);
-    const auth = useSelector((state) => state.authReducer);
+    const dbGame = useSelector((state) => state.gameDbReducer);
+    const auth = useSelector( ( state ) => state.authReducer );
+    const realGame = useSelector( ( state ) => state.gameReducer )
+    const props = {
+        color: dbGame.color,
+        turn: realGame.turn,
+    };
     return (
         <div className="d-flex w-100 flex-column " style={wrapperDiv}>
             <header className="flex-grow-0 flex-shrink-0 w-100">
-                {game.gameId ? (
-                    <Redirect to={`/game/${game.gameId}`} />
-                ) : (
-                    <>
-                        {auth.token !== undefined &&
-                        auth.token === localStorage.token ? (
-                            <>
-                                <NavBar />
-                                <Redirect to="/" />
-                            </>
-                        ) : (
-                            <NavBar />
-                        )}
-                    </>
-                )}
+                {dbGame.gameId ? <GameBar {...props}/> : <NavBar />}
             </header>
             <main className="flex-grow-1 flex-shrink-0 w-100 ">
                 <ErrorModal />
                 <Switch>
-                    <Route component={MainPage} path="/" exact />
-                    <Route path="/game/:id" component={GamePage} exact />
-                    <Route component={LoginPage} path="/login" exact />
-                    <Route component={RegisterPage} path="/register" exact />
-                    <Route
-                        render={({ location }) => (
-                            <>
-                                <NotFoundPage />
-                            </>
-                        )}
-                    />
+                    <Route exact path="/">
+                        {dbGame.gameId ? <Redirect to={`/game/${dbGame.gameId}`} />: <MainPage />}
+                    </Route>
+                    <Route exact path="/login">
+                        {auth.token ? <Redirect to="/" /> : <LoginPage />}
+                    </Route>
+                    <Route exact path="/register">
+                        {auth.token ? <Redirect to="/" /> : <RegisterPage />}
+                    </Route>
+                    <Route exact path="/game/:id">
+                        {!dbGame.gameId ? <Redirect to="/" />: <GamePage />}
+                    </Route>
+                    <Route component={NotFoundPage} path='*' />
                 </Switch>
             </main>
-            <footer className="bg-dark text-light text-center text-lg-start flex-shrink-0 flex-grow-0 w-100">
-                <div className="text-center p-3 ">
-                    created by Vladyslav Shpylka Project on GitHub:
-                    <a
-                        className="text-light px-1"
-                        href="https://github.com/Mr2NEC/my-chess-react"
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        React
-                    </a>
-                    <a
-                        className="text-light px-1"
-                        href="https://github.com/Mr2NEC/my-chess-node"
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        Node
-                    </a>
-                </div>
+            <footer className="bg-dark text-light text-center text-lg-start flex-shrink-0 flex-grow-0 w-100 py-2">
             </footer>
         </div>
     );

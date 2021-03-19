@@ -1,4 +1,4 @@
-import { FROM, CLEANMC } from '../type';
+import { FROM, CLEARMC } from '../type';
 
 
 export default function movementControlReducer(state , action) {
@@ -10,7 +10,7 @@ export default function movementControlReducer(state , action) {
         return {from:action.cell}
     }
     switch (action.type) {
-        case CLEANMC:
+        case CLEARMC:
         return {}
     }
 

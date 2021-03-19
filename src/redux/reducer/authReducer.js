@@ -1,41 +1,27 @@
-import { LOGIN, REGISTER, LOGOUT } from '../type';
+import { LOGIN, LOGOUT } from '../type';
 import jwt_decode from 'jwt-decode';
 
-export default function authReducer(state, action) {
-    switch (state) {
-        case undefined: {
-            if (localStorage.token !== null) {
-                return authReducer(
-                    {},
-                    {
-                        type: LOGIN,
-                        payload: localStorage.token,
-                    }
-                );
-            }
+const token = localStorage.getItem('token')
+const initialState = token ?authReducer({},{type: LOGIN, payload: token}): {}
 
-            return {};
-        }
-    }
+        
+export default function authReducer(state = initialState, action) {
 
     switch (action.type) {
         case LOGIN:
-            if (action.payload !== null && action.payload !== undefined) {
-                localStorage.token = action.payload;
+            if (action.payload) {
+                localStorage.setItem( 'token', action.payload );
                 return {
                     ...state,
-
                     token: action.payload,
                     payload: jwt_decode(action.payload),
                 };
             }
 
-        case REGISTER:
-            return state
-
         case LOGOUT:
             return {};
+        
+        default:
+            return state;
     }
-
-    return state;
 }

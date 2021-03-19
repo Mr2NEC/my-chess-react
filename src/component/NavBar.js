@@ -16,11 +16,8 @@ export default function NavBar() {
                 </Navbar.Brand>
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-end">
-                    {auth.token !== undefined &&
-                    auth.token === localStorage.token ? (
-                        <>
+                    {auth.token ? (
                             <LogoutButton text={auth.payload.sub.login} />
-                        </>
                     ) : (
                         <>
                             <Nav.Link

@@ -1,20 +1,20 @@
-import React, { useContext } from 'react';
-import { useSelector } from 'react-redux';
-import { WebSocketContext } from '../redux/WebSocket';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Modal } from 'react-bootstrap';
 
-export default function AlertModal() {
-    const ws = useContext(WebSocketContext);
+import {ENDGAME, ALERT} from '../redux/type'
 
+export default function AlertModal() {
+    const dispatch = useDispatch();
     const gameDb = useSelector((state) => state.gameDbReducer);
     const game = useSelector((state) => state.gameReducer);
 
     const sendGameAlert = () => {
-        if (game.checkMate) {
-            ws.sendGameAlert();
-            ws.sendEndGame();
+        dispatch( { type: ALERT, payload: { alert: false } } );
+        
+        if ( game.checkMate ) {
+            dispatch({ type: ENDGAME });
         }
-        ws.sendGameAlert();
     };
 
     return (

@@ -1,14 +1,13 @@
 import { GAMEDBINIT, ALERT, ENDGAME } from '../type';
 
-export default function gameDbReducer(state, action) {
-    if (!state) {
-        state = {
+const initialState = {
             status: false,
             gameId: null,
             color: null,
             alert: false,
         };
-    }
+
+export default function gameDbReducer(state = initialState, action) {
     switch (action.type) {
         case GAMEDBINIT:
             if (action.payload.gameId) {
@@ -39,7 +38,8 @@ export default function gameDbReducer(state, action) {
                 alert: false,
             };
         }
+              default:
+        return state;
     }
 
-    return state;
 }
