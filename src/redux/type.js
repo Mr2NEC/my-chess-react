@@ -15,5 +15,4 @@ export const FROM = 'FROM';
 export const CLEARMC = 'CLEARMC';
 export const ERROR = 'ERROR';
 export const ERRORHIDE = 'ERRORHIDE';
-export const ALERT = 'ALERT';
 export const ENDGAME = 'ENDGAME';

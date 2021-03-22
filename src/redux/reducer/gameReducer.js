@@ -1,9 +1,6 @@
 import { GAME, ENDGAME } from '../type';
-
-export default function gameReducer(state, action) {
-    if (!state) {
-        state = {};
-    }
+const initialState = {};
+export default function gameReducer(state = initialState, action) {
     switch (action.type) {
         case GAME:
             return {

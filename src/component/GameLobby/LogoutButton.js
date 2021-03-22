@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { WebSocketContext } from '../redux/WebSocket';
+import { WebSocketContext } from '../../redux/WebSocket';
 import { Button } from 'react-bootstrap';
 
 export default function LogoutButton({ text }) {

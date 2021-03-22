@@ -1,37 +1,33 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import LogoutButton from './LogoutButton';
 import { NavLink } from 'react-router-dom';
 import { Navbar, Nav } from 'react-bootstrap';
 
-export default function NavBar() {
-    const auth = useSelector((state) => state.authReducer);
+export default function NavBar(auth) {
     return (
         <div>
-            <Navbar bg="dark">
+            <Navbar bg='dark'>
                 <Navbar.Brand>
-                    <Nav.Link className="text-light" as={NavLink} to="/" exact>
+                    <Nav.Link className='text-light' as={NavLink} to='/' exact>
                         My Chess
                     </Nav.Link>
                 </Navbar.Brand>
                 <Navbar.Toggle />
-                <Navbar.Collapse className="justify-content-end">
+                <Navbar.Collapse className='justify-content-end'>
                     {auth.token ? (
-                            <LogoutButton text={auth.payload.sub.login} />
+                        <LogoutButton text={auth.payload.sub.login} />
                     ) : (
                         <>
                             <Nav.Link
-                                className="text-light"
+                                className='text-light'
                                 as={NavLink}
-                                to="/login"
-                            >
+                                to='/login'>
                                 Log in
                             </Nav.Link>
                             <Nav.Link
-                                className="text-light"
+                                className='text-light'
                                 as={NavLink}
-                                to="/register"
-                            >
+                                to='/register'>
                                 Sign up
                             </Nav.Link>
                         </>

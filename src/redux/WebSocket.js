@@ -1,7 +1,7 @@
 import React, { createContext } from 'react';
 import io from 'socket.io-client';
 import { useDispatch } from 'react-redux';
-import * as action from './action/action'
+import * as action from './action/action';
 import * as types from './type';
 
 const SOCKET_SERVER_URL = 'http://localhost:4000';
@@ -30,7 +30,7 @@ export default ({ children }) => {
         });
     };
     const sendLogout = () => {
-        dispatch(action.actionLogout())
+        dispatch(action.actionLogout());
         socket.emit(types.LOGOUT);
     };
 
@@ -75,7 +75,7 @@ export default ({ children }) => {
         });
 
         socket.on(types.LOGOUT, () => {
-            dispatch(action.actionLogout())
+            dispatch(action.actionLogout());
         });
 
         socket.on(types.PROPOSEPLAY, (payload) => {
@@ -94,9 +94,6 @@ export default ({ children }) => {
         });
         socket.on(types.ERROR, (payload) => {
             dispatch({ type: types.ERROR, payload });
-        });
-        socket.on(types.ALERT, () => {
-            dispatch({ type: types.ALERT, payload: { alert: true } });
         });
 
         ws = {
