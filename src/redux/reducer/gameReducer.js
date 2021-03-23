@@ -1,5 +1,7 @@
 import { GAME, ENDGAME } from '../type';
+
 const initialState = {};
+
 export default function gameReducer(state = initialState, action) {
     switch (action.type) {
         case GAME:
@@ -10,7 +12,8 @@ export default function gameReducer(state = initialState, action) {
 
         case ENDGAME:
             return {};
-    }
 
-    return state;
+        default:
+            return state;
+    }
 }

@@ -1,23 +1,22 @@
-import { USERONLINE,USERONLINEDEL,USERONLINEADD, } from '../type';
+import { USERONLINE, USERONLINEDEL, USERONLINEADD } from '../type';
 
+const initialState = [];
 
-export default function userOnlineReducer(state , action) {
-    if(!state){
-        state = []
-    }
+export default function userOnlineReducer(state = initialState, action) {
     switch (action.type) {
         case USERONLINE:
-            if (Array.isArray(action.payload)) {
-                return [ ...action.payload]
-            }
-            return state
+            return [...action.payload];
+
         case USERONLINEADD:
-            return [...state, ...action.payload]
+            return [...state, ...action.payload];
 
         case USERONLINEDEL:
-            state = state.filter(item=> item.connectionId !== action.payload)
+            state = state.filter(
+                (item) => item.connectionId !== action.payload,
+            );
+            return state;
+
+        default:
             return state;
     }
-
-    return state;
 }

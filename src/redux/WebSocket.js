@@ -73,7 +73,7 @@ export default ({ children }) => {
         });
 
         socket.on(types.LOGIN, (payload) => {
-            dispatch({ type: types.LOGIN, payload });
+            dispatch(action.actionLogin(payload));
         });
 
         socket.on(types.LOGOUT, () => {

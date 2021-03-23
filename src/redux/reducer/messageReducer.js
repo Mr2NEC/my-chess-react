@@ -1,22 +1,14 @@
-import { MSGINIT, SENDMSG } from '../type';
+import { SENDMSG } from '../type';
 
+const initialState = [];
 
-export default function messageReducer(state , action) {
-    if(!state){
-        state = []
-    }
+export default function messageReducer(state = initialState, action) {
     switch (action.type) {
-        case MSGINIT:
-            if(Array.isArray(action.payload)){
-                return[
-                    ...state,
-                    ...action.payload
-                ]
-            }  
         case SENDMSG:
-            state.unshift(action.payload)
-                return[...state]    
-    }
+            state.unshift(action.payload);
+            return [...state];
 
-    return state;
+        default:
+            return state;
+    }
 }

@@ -1,30 +1,22 @@
 import { ERROR, ERRORHIDE } from '../type';
 
+const initialState = { status: false, message: '' };
 
-export default function errorReducer(state , action) {
-    if(!state){
-        state = {
-            status:false,
-            message: '',
-        }
-    }
+export default function errorReducer(state = initialState, action) {
+    switch (action.type) {
+        case ERROR:
+            return {
+                show: true,
+                message: action.payload,
+            };
 
-        switch (action.type) {
-            case ERROR:
-            state = {
-                    show: true,
-                    message: action.payload,
-                }
-            return state
-
-            case ERRORHIDE: 
-            state = {
-                show:false,
+        case ERRORHIDE:
+            return {
+                show: false,
                 message: '',
-                }
-            return state
-                
-        }
+            };
 
-    return state;
+        default:
+            return state;
+    }
 }
