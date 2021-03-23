@@ -26,7 +26,7 @@ export default function GamePage() {
     };
 
     const alertProps = {
-        game,
+        check: game.check,
         aletText:
             game.check && !game.checkMate
                 ? `${game.turn === 'black' ? 'Black' : 'White'} Check!`

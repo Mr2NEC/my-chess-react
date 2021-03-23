@@ -1,15 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal } from 'react-bootstrap';
 
 export default function AlertModal(props) {
-    const { game, aletText, fu } = props;
-    const [alert, setAlert] = useState(game.check);
+    const { check, aletText, fu } = props;
+    const [show, setShow] = useState(false);
+
+    useEffect(() => {
+        if (check) {
+            setShow(true);
+        }
+    }, [check]);
+
     return (
         <Modal
             size='sm'
-            show={alert}
+            show={show}
             onHide={() => {
-                setAlert(false);
+                setShow(false);
                 fu();
             }}>
             <Modal.Header closeButton>

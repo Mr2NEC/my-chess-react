@@ -6,7 +6,7 @@ export default function AuthComponent(props) {
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
 
-    const FROMSTULE = {
+    const FROMSTYLE = {
         margin: '0 auto',
         padding: '50px',
         maxWidth: '460px',
@@ -19,7 +19,7 @@ export default function AuthComponent(props) {
         return login.length > 0 && password.length > 0;
     }
     return (
-        <Form style={FROMSTULE}>
+        <Form style={FROMSTYLE}>
             <Form.Group size='lg'>
                 <Form.Label>Login</Form.Label>
                 <Form.Control

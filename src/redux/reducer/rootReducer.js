@@ -5,7 +5,6 @@ import gameDbReducer from './gameDbReducer';
 import proposeReducer from './proposeReducer';
 import gameReducer from './gameReducer';
 import messageReducer from './messageReducer';
-import movementControlReducer from './movementControlReducer';
 import errorReducer from './errorReducer';
 
 export const rootReducer = combineReducers({
@@ -15,6 +14,5 @@ export const rootReducer = combineReducers({
     gameReducer: gameReducer,
     proposeReducer: proposeReducer,
     messageReducer: messageReducer,
-    movementControlReducer: movementControlReducer,
     errorReducer: errorReducer,
 });

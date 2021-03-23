@@ -6,14 +6,14 @@ import { ERROR } from '../../../redux/type';
 import './Field.css';
 
 export default function Field(data) {
-    const { COLUMNS, ROWS, rotate } = data;
     const dispatch = useDispatch();
     const ws = useContext(WebSocketContext);
     const game = useSelector((state) => state.gameReducer);
     const gameDb = useSelector((state) => state.gameDbReducer);
-    const movementControl = useSelector(
-        (state) => state.movementControlReducer,
-    );
+
+    const { COLUMNS, ROWS, rotate } = data;
+
+    const [move, setMove] = useState({});
     const [selectedCells, setSelectedCells] = useState();
 
     function getPositions(position) {
@@ -31,8 +31,9 @@ export default function Field(data) {
     }
 
     function cellClick(position) {
+        console.log(move);
         if (gameDb.color === game.turn) {
-            if (!movementControl.from) {
+            if (!move.from) {
                 const allowablePositions = getPositions(position);
                 if (allowablePositions.length === 0) {
                     return dispatch({
@@ -40,11 +41,11 @@ export default function Field(data) {
                         payload: 'This piece cannot make a move.',
                     });
                 }
-                dispatch({ type: 'FROM', cell: position });
+                setMove({ from: position });
                 return setSelectedCells(allowablePositions);
             }
 
-            const allowablePositions = getPositions(movementControl.from);
+            const allowablePositions = getPositions(move.from);
             const findPosition = allowablePositions.find(
                 (fp) => fp === position,
             );
@@ -56,7 +57,8 @@ export default function Field(data) {
                 });
             }
             setSelectedCells([]);
-            return ws.sendMove({ from: movementControl.from, to: position });
+            ws.sendMove({ from: move.from, to: position });
+            return setMove({});
         }
         return dispatch({ type: ERROR, payload: 'Now is not your turn.' });
     }

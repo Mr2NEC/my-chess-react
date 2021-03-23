@@ -18,6 +18,7 @@ export default ({ children }) => {
     const sendMessage = (payload) => {
         socket.emit(types.SENDMSG, payload);
     };
+
     const sendLogin = (payload) => {
         socket.emit(types.LOGIN, payload);
     };
@@ -29,6 +30,7 @@ export default ({ children }) => {
             }
         });
     };
+
     const sendLogout = () => {
         dispatch(action.actionLogout());
         socket.emit(types.LOGOUT);
@@ -43,7 +45,6 @@ export default ({ children }) => {
     };
 
     const sendMove = (payload) => {
-        dispatch(action.actionClearMC());
         socket.emit(types.MOVE, payload);
     };
 
@@ -54,6 +55,7 @@ export default ({ children }) => {
                 : null,
             transports: ['websocket'],
         });
+
         socket.on(types.USERONLINE, (payload) => {
             dispatch({ type: types.USERONLINE, payload });
         });
@@ -86,12 +88,15 @@ export default ({ children }) => {
             dispatch({ type: types.GAMEDBINIT, payload });
             socket.emit(types.JOINROOM, payload.gameId);
         });
+
         socket.on(types.GAME, (payload) => {
             dispatch({ type: types.GAME, payload });
         });
+
         socket.on(types.MOVE, (payload) => {
             socket.emit(types.GAME, payload);
         });
+
         socket.on(types.ERROR, (payload) => {
             dispatch({ type: types.ERROR, payload });
         });
