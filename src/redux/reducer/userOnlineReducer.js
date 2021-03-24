@@ -8,13 +8,14 @@ export default function userOnlineReducer(state = initialState, action) {
             return [...action.payload];
 
         case USERONLINEADD:
-            return [...state, ...action.payload];
+
+            return [...state, action.payload];
 
         case USERONLINEDEL:
-            state = state.filter(
+            let arr = state.filter(
                 (item) => item.connectionId !== action.payload,
             );
-            return state;
+            return [...arr];
 
         default:
             return state;
