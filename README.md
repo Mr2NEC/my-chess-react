@@ -33,3 +33,7 @@ npm start
 ```
 
 The client expects the server at `http://localhost:4000`.
+
+## Author
+
+Vladyslav Shpylka - [LinkedIn](https://www.linkedin.com/in/vshpylka/) · [GitHub](https://github.com/Mr2NEC)
